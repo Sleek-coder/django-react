@@ -89,31 +89,31 @@ WSGI_APPLICATION = 'codingmstrproject.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
-# DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
-
-# if DEVELOPMENT_MODE is True:
-#    DATABASES = { 
-#                  'default': { 
-#                      'ENGINE': 'django.db.backends.postgresql',
-#                      'NAME': 'cdotdb', 
-#                      'USER': 'postgres',
-#                      'PASSWORD': '1234', 
-#                      'HOST': 'localhost',
-#                      } 
-#                  } 
-# elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
-#     if os.getenv("DATABASE_URL", None) is None:
-#         raise Exception("DATABASE_URL environment variable not defined") 
-#     DATABASES = {
-#         "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
+# }
+
+DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
+
+if DEVELOPMENT_MODE is True:
+   DATABASES = { 
+                 'default': { 
+                     'ENGINE': 'django.db.backends.postgresql',
+                     'NAME': 'cdotdb', 
+                     'USER': 'postgres',
+                     'PASSWORD': '1234', 
+                     'HOST': 'localhost',
+                     } 
+                 } 
+elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
+    if os.getenv("DATABASE_URL", None) is None:
+        raise Exception("DATABASE_URL environment variable not defined") 
+    DATABASES = {
+        "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
+    }
 
 
 # Password validation
